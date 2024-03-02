@@ -41,8 +41,8 @@ jobs:
           cache-from: true  # Use cached layers (optional)
           file: ./Dockerfile  # Path to your Dockerfile (optional)
           build-args:  # Define build arguments
-            name: ${{ steps.get_image_details.outputs.name }}  # Use outputs from custom script
-            tag: ${{ steps.get_image_details.outputs.tag }}  # Use outputs from custom script
+            name: web-py-ci
+            tag: 1.0.0 
 
 env:
   # Removed environment variables

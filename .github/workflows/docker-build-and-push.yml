@@ -30,12 +30,8 @@ jobs:
             IMAGE_TAG=$(cat poetry.toml | grep version= | cut -d '=' -f2 | tr -d ' ')
   
             # Set outputs with echo for verification
-            echo "IMAGE_NAME=$IMAGE_NAME"
-            echo "IMAGE_TAG=$IMAGE_TAG"
-  
-            # Set outputs for subsequent steps
-            echo "NAME=$IMAGE_NAME" >> $GITHUB_OUTPUT
-            echo "TAG=$IMAGE_TAG" >> $GITHUB_OUTPUT
+            echo "name=$IMAGE_NAME" >> $GITHUB_OUTPUT
+            echo "tag=$IMAGE_TAG" >> $GITHUB_OUTPUT
   
 
       - name: Build and push Docker image
@@ -45,8 +41,8 @@ jobs:
           cache-from: true  # Use cached layers (optional)
           file: ./Dockerfile  # Path to your Dockerfile (optional)
           build-args:  # Define build arguments
-            IMAGE_NAME: ${{ steps.get_image_details.outputs.NAME }}  # Use outputs from custom script (uppercase for consistency)
-            IMAGE_TAG: ${{ steps.get_image_details.outputs.TAG }}  # Use outputs from custom script
+            name: ${{ steps.get_image_details.outputs.name }}  # Use outputs from custom script
+            tag: ${{ steps.get_image_details.outputs.tag }}  # Use outputs from custom script
 
 env:
   # Removed environment variables
